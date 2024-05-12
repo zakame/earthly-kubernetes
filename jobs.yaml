@@ -1,0 +1,129 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: earthly-client-config
+  namespace: earthly
+data:
+  config.yml: |-
+    global:
+      tls_enabled: false
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: earthly-go-part6
+  namespace: earthly
+spec:
+  template:
+    metadata:
+      labels:
+        job: earthly
+    spec:
+      containers:
+      - image: earthly/earthly:v0.8.9
+        name: earthly-go-part6
+        args:
+        - -P
+        - --ci
+        - github.com/earthly/earthly/examples/tutorial/go/part6:main+integration-tests
+        env:
+        - name: BUILDKIT_HOST
+          value: tcp://earthly-buildkitd:8372
+        volumeMounts:
+        - name: earthly-client-config
+          mountPath: /etc/.earthly
+      volumes:
+      - name: earthly-client-config
+        configMap:
+          name: earthly-client-config
+      restartPolicy: Never
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: earthly-java-part6
+  namespace: earthly
+spec:
+  template:
+    metadata:
+      labels:
+        job: earthly
+    spec:
+      containers:
+      - image: earthly/earthly:v0.8.9
+        name: earthly-java-part6
+        args:
+        - -P
+        - --ci
+        - github.com/earthly/earthly/examples/tutorial/java/part6:main+integration-tests
+        env:
+        - name: BUILDKIT_HOST
+          value: tcp://earthly-buildkitd:8372
+        volumeMounts:
+        - name: earthly-client-config
+          mountPath: /etc/.earthly
+      volumes:
+      - name: earthly-client-config
+        configMap:
+          name: earthly-client-config
+      restartPolicy: Never
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: earthly-js-part6
+  namespace: earthly
+spec:
+  template:
+    metadata:
+      labels:
+        job: earthly
+    spec:
+      containers:
+      - image: earthly/earthly:v0.8.9
+        name: earthly-js-part6
+        args:
+        - -P
+        - --ci
+        - github.com/earthly/earthly/examples/tutorial/js/part6:main+integration-tests
+        env:
+        - name: BUILDKIT_HOST
+          value: tcp://earthly-buildkitd:8372
+        volumeMounts:
+        - name: earthly-client-config
+          mountPath: /etc/.earthly
+      volumes:
+      - name: earthly-client-config
+        configMap:
+          name: earthly-client-config
+      restartPolicy: Never
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: earthly-python-part6
+  namespace: earthly
+spec:
+  template:
+    metadata:
+      labels:
+        job: earthly
+    spec:
+      containers:
+      - image: earthly/earthly:v0.8.9
+        name: earthly-python-part6
+        args:
+        - -P
+        - --ci
+        - github.com/earthly/earthly/examples/tutorial/python/part6:main+integration-tests
+        env:
+        - name: BUILDKIT_HOST
+          value: tcp://earthly-buildkitd:8372
+        volumeMounts:
+        - name: earthly-client-config
+          mountPath: /etc/.earthly
+      volumes:
+      - name: earthly-client-config
+        configMap:
+          name: earthly-client-config
+      restartPolicy: Never
