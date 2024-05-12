@@ -1,0 +1,60 @@
+apiVersion: cert-manager.io/v1
+kind: Issuer
+metadata:
+  name: earthly-buildkitd-selfsign
+spec:
+  selfSigned: {}
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: earthly-buildkitd-ca
+spec:
+  secretName: earthly-buildkitd-ca
+  duration: 43800h # 5 years
+  issuerRef:
+    name: earthly-buildkitd-selfsign
+    kind: Issuer
+  commonName: ca.earthly-buildkitd.cert-manager
+  isCA: true
+---
+apiVersion: cert-manager.io/v1
+kind: Issuer
+metadata:
+  name: earthly-buildkitd-ca
+spec:
+  ca:
+    secretName: earthly-buildkitd-ca
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: earthly-buildkitd-tls
+spec:
+  secretName: earthly-buildkitd-tls-certs
+  duration: 8760h # 1 year
+  usages:
+  - client auth
+  - server auth
+  dnsNames:
+  - earthly-buildkitd
+  - earthly-buildkitd.earthly
+  - earthly-buildkitd.earthly.svc
+  issuerRef:
+    name: earthly-buildkitd-ca
+    kind: Issuer
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: earthly-client-tls
+spec:
+  secretName: earthly-client-tls-certs
+  duration: 8760h # 1 year
+  usages:
+  - client auth
+  emailAddresses:
+  - earthly@earthly
+  issuerRef:
+    name: earthly-buildkitd-ca
+    kind: Issuer
