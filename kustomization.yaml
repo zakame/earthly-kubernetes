@@ -36,4 +36,4 @@ patches:
 
 images:
 - name: earthly/buildkitd
-  newTag: v0.8.9
+  newTag: v0.8.15

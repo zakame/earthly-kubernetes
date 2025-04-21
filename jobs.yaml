@@ -20,7 +20,7 @@ spec:
         job: earthly
     spec:
       containers:
-      - image: earthly/earthly:v0.8.9
+      - image: earthly/earthly:v0.8.15
         name: earthly-go-part6
         args:
         - -P
@@ -50,7 +50,7 @@ spec:
         job: earthly
     spec:
       containers:
-      - image: earthly/earthly:v0.8.9
+      - image: earthly/earthly:v0.8.15
         name: earthly-java-part6
         args:
         - -P
@@ -80,7 +80,7 @@ spec:
         job: earthly
     spec:
       containers:
-      - image: earthly/earthly:v0.8.9
+      - image: earthly/earthly:v0.8.15
         name: earthly-js-part6
         args:
         - -P
@@ -110,7 +110,7 @@ spec:
         job: earthly
     spec:
       containers:
-      - image: earthly/earthly:v0.8.9
+      - image: earthly/earthly:v0.8.15
         name: earthly-python-part6
         args:
         - -P
