@@ -115,7 +115,7 @@ spec:
         args:
         - -P
         - --ci
-        - github.com/earthly/earthly/examples/tutorial/python/part6:main+integration-tests
+        - github.com/zakame/earthly/examples/tutorial/python/part6:fix-tutorial-python-part6-psycopg+integration-tests
         env:
         - name: BUILDKIT_HOST
           value: tcp://earthly-buildkitd:8372
